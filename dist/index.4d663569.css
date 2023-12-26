@@ -99,4 +99,22 @@ body {
   padding-right: 13px;
 }
 
+.range-container {
+  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 15px;
+  display: flex;
+}
+
+.range-container > span:nth-child(2) {
+  color: #000;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #000;
+  margin: 0 16px;
+  padding: 8px 0;
+  font-size: 25px;
+}
+
 /*# sourceMappingURL=index.4d663569.css.map */

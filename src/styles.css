@@ -106,3 +106,22 @@ body{
     color: white;
     padding-right: 13px;
 }
+
+
+.range-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    margin-right: 15px;
+}
+
+.range-container > span:nth-child(2){
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    padding: 8px 0px 8px 0px;
+    margin: 0px 16px 0px 16px;
+    font-size: 25px;
+    border: solid 1px black;
+}
