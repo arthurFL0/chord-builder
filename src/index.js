@@ -2,11 +2,13 @@ const { Note, Scale } = require("tonal");
 const notas = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 const afinacao = ["E","A","D","G","B","E"];
 const braco = document.querySelector(".braco");
+const openNoteContainer = document.querySelector(".openNote-container")
 const rangeHTML = document.querySelectorAll(".range-container > span")[1]
 const rangeDiminui = document.querySelectorAll(".range-container > span")[0]
 const rangeAumenta = document.querySelectorAll(".range-container > span")[2]
 
 let arrayNotas = [[],[],[],[],[],[]];
+let notasSelecionadas = [{},{},{},{},{},{}];
 let range = 1;
 
 
@@ -43,8 +45,87 @@ function atualizaCasas(){
 
 }
 
-console.log(arrayNotas)
+function desativarNotaVelha(coluna){
+    if(notasSelecionadas[coluna].casa != 6){
+        notasSelecionadas[coluna].elemento.classList.toggle("hidden");
+    }else{
+        notasSelecionadas[coluna].elemento.childNodes[0].classList.toggle("dis-none");
+        notasSelecionadas[coluna].elemento.childNodes[1].classList.toggle("dis-block");
+    }
+}
 
+
+function selecionaOpenNote(coluna,nota,elemento){
+    if (elemento.childNodes[0].classList.contains("dis-none")){
+        elemento.childNodes[0].classList.toggle("dis-none")
+        elemento.childNodes[1].classList.toggle("dis-block")
+        notasSelecionadas[coluna] = {};
+        
+    }else{
+
+        if(notasSelecionadas[coluna].nota != undefined){
+            desativarNotaVelha(coluna);
+        }
+
+        elemento.childNodes[0].classList.toggle("dis-none")
+        elemento.childNodes[1].classList.toggle("dis-block")
+        let obj = notasSelecionadas[coluna];
+        obj["nota"] = nota;
+        obj["casa"] = 6;
+        obj["elemento"] = elemento;
+    }
+}
+
+function selecionaNota(coluna,casa,nota,elementoNovo){
+    if(elementoNovo.classList.contains("hidden")){
+        elementoNovo.classList.toggle("hidden")
+
+        if(notasSelecionadas[coluna].nota != undefined){
+            desativarNotaVelha(coluna);
+        }
+
+        let obj = notasSelecionadas[coluna];
+        obj["nota"] = nota;
+        obj["casa"] = casa;
+        obj["elemento"] = elementoNovo;
+        
+
+
+    }else{
+        elementoNovo.classList.toggle("hidden");
+        notasSelecionadas[coluna] = {};
+    }
+}
+
+
+
+function displayOpenNotes(){
+    afinacao.forEach((el,i)=>{
+        let div = document.createElement("div")
+        let sp = document.createElement("span")
+        let spBola = document.createElement("span")
+        let hidden = document.createElement("p")
+        hidden.append(el);
+        sp.append("X")
+        sp.classList.add("openNote-span")
+        hidden.classList.add("dis-none")
+        sp.append(hidden)
+        div.append(sp)
+        div.classList.add("openNote-holder")
+        spBola.classList.add("openNote-bola")
+        div.append(spBola)
+        openNoteContainer.append(div);
+
+
+
+        div.addEventListener("click",()=>{
+            selecionaOpenNote(i,el,div);
+        })
+
+        
+
+    })
+}
 
 
 function displayTrastes(){
@@ -63,12 +144,17 @@ function displayTrastes(){
             let nota = document.createElement("span");
             nota.classList.add("nota","hidden");
 
-            nota.append(defineNota(i,j))
+            let notaTxt = defineNota(i,j);
+            nota.append(notaTxt)
 
             arrayNotas[i-1].push(nota);
 
             notaContainer.appendChild(nota);
             casa.appendChild(notaContainer);
+
+            notaContainer.addEventListener("click", ()=>{
+                selecionaNota(i-1,j-1,notaTxt,nota)
+            })
            
             if(i === 5){
             let notaContainerD = document.createElement("span");
@@ -76,14 +162,19 @@ function displayTrastes(){
 
             let notaD = document.createElement("span");
             notaD.classList.add("nota","hidden");
-            notaD.append(defineNota(6,j))
+            let notaDTxt = defineNota(6,j);
+            notaD.append(notaDTxt)
 
             arrayNotas[5].push(notaD);
-
-           
-
+            
+            
             notaContainerD.appendChild(notaD);  
             casa.appendChild(notaContainerD);  
+            
+            notaContainerD.addEventListener("click", ()=>{
+                selecionaNota(i,j-1,notaDTxt,notaD)
+            })
+
             }
 
             col.appendChild(casa);
@@ -98,6 +189,7 @@ function displayTrastes(){
 
 window.onload = () => {
     displayTrastes();
+    displayOpenNotes();
     rangeHTML.append(range)
 }
 

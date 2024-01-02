@@ -46,6 +46,32 @@ body {
   display: flex;
 }
 
+.openNote-container {
+  color: #fff;
+  cursor: pointer;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  display: flex;
+}
+
+.openNote-bola {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 15px;
+  height: 15px;
+  margin-top: 8px;
+  transition-duration: .3s;
+  display: none;
+}
+
+.openNote-span {
+  transition-duration: .3s;
+}
+
+.dis-block {
+  display: block;
+}
+
 .nota-container {
   cursor: pointer;
   width: 15px;
@@ -62,6 +88,7 @@ body {
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  font-size: 0;
   transition-property: opacity;
   transition-duration: .3s;
   display: block;
@@ -115,6 +142,10 @@ body {
   margin: 0 16px;
   padding: 8px 0;
   font-size: 25px;
+}
+
+.dis-none {
+  display: none;
 }
 
 /*# sourceMappingURL=index.4d663569.css.map */
