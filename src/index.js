@@ -1,4 +1,4 @@
-const { Note, Scale } = require("tonal");
+const { Chord } = require("tonal");
 const notas = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 const afinacao = ["E","A","D","G","B","E"];
 const braco = document.querySelector(".braco");
@@ -6,6 +6,8 @@ const openNoteContainer = document.querySelector(".openNote-container")
 const rangeHTML = document.querySelectorAll(".range-container > span")[1]
 const rangeDiminui = document.querySelectorAll(".range-container > span")[0]
 const rangeAumenta = document.querySelectorAll(".range-container > span")[2]
+const acordeResultadoHTML = document.querySelector(".acordeResultado");
+const acordeBTN = document.querySelector(".acordeBTN");
 
 let arrayNotas = [[],[],[],[],[],[]];
 let notasSelecionadas = [{},{},{},{},{},{}];
@@ -54,6 +56,21 @@ function desativarNotaVelha(coluna){
     }
 }
 
+function displayNotasSelecionadas(){
+    let holder = document.querySelector(".notasSelecionadas-holder")
+  
+    notasSelecionadas.forEach((el,i)=>{
+            let span = holder.children.length < 6 ? document.createElement("span") : holder.children[i];
+            let txt = `Corda ${i+1}: ` + (el.nota != undefined ? el.nota : "Sem nota");
+            if(span.childNodes.length < 1){
+                span.append(txt);
+                holder.append(span)
+            }else{
+                span.replaceChild(document.createTextNode(txt),span.childNodes[0]);
+            }
+    })
+}
+
 
 function selecionaOpenNote(coluna,nota,elemento){
     if (elemento.childNodes[0].classList.contains("dis-none")){
@@ -74,9 +91,11 @@ function selecionaOpenNote(coluna,nota,elemento){
         obj["casa"] = 6;
         obj["elemento"] = elemento;
     }
+
+    displayNotasSelecionadas();
 }
 
-function selecionaNota(coluna,casa,nota,elementoNovo){
+function selecionaNota(coluna,casa,elementoNovo){
     if(elementoNovo.classList.contains("hidden")){
         elementoNovo.classList.toggle("hidden")
 
@@ -85,7 +104,7 @@ function selecionaNota(coluna,casa,nota,elementoNovo){
         }
 
         let obj = notasSelecionadas[coluna];
-        obj["nota"] = nota;
+        obj["nota"] = elementoNovo.innerText;
         obj["casa"] = casa;
         obj["elemento"] = elementoNovo;
         
@@ -95,7 +114,10 @@ function selecionaNota(coluna,casa,nota,elementoNovo){
         elementoNovo.classList.toggle("hidden");
         notasSelecionadas[coluna] = {};
     }
+
+    displayNotasSelecionadas();
 }
+
 
 
 
@@ -153,7 +175,7 @@ function displayTrastes(){
             casa.appendChild(notaContainer);
 
             notaContainer.addEventListener("click", ()=>{
-                selecionaNota(i-1,j-1,notaTxt,nota)
+                selecionaNota(i-1,j-1,nota)
             })
            
             if(i === 5){
@@ -172,7 +194,7 @@ function displayTrastes(){
             casa.appendChild(notaContainerD);  
             
             notaContainerD.addEventListener("click", ()=>{
-                selecionaNota(i,j-1,notaDTxt,notaD)
+                selecionaNota(i,j-1,notaD)
             })
 
             }
@@ -186,14 +208,35 @@ function displayTrastes(){
 }
 
 
+function achaAcorde(){
+   let notas = notasSelecionadas.map((obj)=>{ 
+    if(obj.nota != undefined){
+        return obj.nota
+    }
+   });
+
+   let acordes = Chord.detect(notas)
+   let txt;
+   if(acordes.length != 0){
+        txt = "Acordes detectados: "+ acordes.join(", ")
+   }else{
+        txt = "Nenhum acorde foi detectado"
+   }
+   acordeResultadoHTML.replaceChildren(txt)
+}
+
 
 window.onload = () => {
     displayTrastes();
     displayOpenNotes();
+    displayNotasSelecionadas();
     rangeHTML.append(range)
 }
 
 
+acordeBTN.addEventListener("click",()=>{
+    achaAcorde();
+})
 
 rangeDiminui.addEventListener("click",(event)=>{
     if(range > 1){
