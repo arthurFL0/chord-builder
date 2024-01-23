@@ -49,7 +49,7 @@ function atualizaCasas(){
 
 function atualizaSelecao(){
     notasSelecionadas.forEach((el,i)=>{
-        if(el.nota != undefined && i != 5){
+        if(el.nota != undefined && el.casa != 6){
             el.nota = el.elemento.textContent;
         }
     })
