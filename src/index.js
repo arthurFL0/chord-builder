@@ -43,8 +43,17 @@ function atualizaNotas(){
 
 function atualizaCasas(){
     [...document.querySelectorAll(".numeroCasas-container > span")].forEach((el,i)=>{
-        el.innerText = i + range })
+        el.textContent = i + range })
 
+}
+
+function atualizaSelecao(){
+    notasSelecionadas.forEach((el,i)=>{
+        if(el.nota != undefined && i != 5){
+            el.nota = el.elemento.textContent;
+        }
+    })
+    displayNotasSelecionadas()
 }
 
 function desativarNotaVelha(coluna){
@@ -175,7 +184,7 @@ function displayTrastes(){
             casa.appendChild(notaContainer);
 
             notaContainer.addEventListener("click", ()=>{
-                selecionaNota(i-1,j-1,nota)
+                selecionaNota(i-1,j,nota)
             })
            
             if(i === 5){
@@ -194,7 +203,7 @@ function displayTrastes(){
             casa.appendChild(notaContainerD);  
             
             notaContainerD.addEventListener("click", ()=>{
-                selecionaNota(i,j-1,notaD)
+                selecionaNota(i,j,notaD)
             })
 
             }
@@ -226,6 +235,7 @@ function achaAcorde(){
 }
 
 
+
 window.onload = () => {
     displayTrastes();
     displayOpenNotes();
@@ -244,6 +254,7 @@ rangeDiminui.addEventListener("click",(event)=>{
         rangeHTML.replaceChild(document.createTextNode(range),rangeHTML.childNodes[0]);
         atualizaCasas();
         atualizaNotas();
+        atualizaSelecao();
     }
 })
 
@@ -253,5 +264,7 @@ rangeAumenta.addEventListener("click",(event)=>{
         rangeHTML.replaceChild(document.createTextNode(range),rangeHTML.childNodes[0]);
         atualizaCasas();
         atualizaNotas();
+        atualizaSelecao();
+
     }
 })
