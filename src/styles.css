@@ -59,6 +59,7 @@ body{
 .openNote-holder{
     cursor: pointer;
     width: 18px;
+    height: 25px;
 }
 
 .openNote-bola{

@@ -61,6 +61,8 @@ function desativarNotaVelha(coluna){
         notasSelecionadas[coluna].elemento.classList.toggle("hidden");
     }else{
         notasSelecionadas[coluna].elemento.childNodes[1].classList.remove("dis-block");
+        notasSelecionadas[coluna].elemento.childNodes[1].classList.add("dis-none");
+
     }
 }
 
@@ -81,13 +83,10 @@ function displayNotasSelecionadas(){
 
 
 function selecionaOpenNote(coluna,nota,elemento){
-    if (elemento.childNodes[0].classList.contains("dis-none")){
-        elemento.childNodes[0].classList.remove("dis-none")
-        elemento.childNodes[1].classList.remove("dis-block")
-        notasSelecionadas[coluna] = {};
-        
-    }else{
 
+    if( elemento.childNodes[0].classList.contains("dis-none") && elemento.childNodes[1].classList.contains("dis-none" ) 
+    || elemento.childNodes[1].classList.contains("dis-none"))
+    {
         if(notasSelecionadas[coluna].nota != undefined){
             desativarNotaVelha(coluna);
         }
@@ -99,6 +98,11 @@ function selecionaOpenNote(coluna,nota,elemento){
         obj["nota"] = nota;
         obj["casa"] = 6;
         obj["elemento"] = elemento;
+    }else{
+        elemento.childNodes[0].classList.remove("dis-none")
+        elemento.childNodes[1].classList.remove("dis-block")
+        elemento.childNodes[1].classList.add("dis-none")
+        notasSelecionadas[coluna] = {};
     }
 
     displayNotasSelecionadas();
