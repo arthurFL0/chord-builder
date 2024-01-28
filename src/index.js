@@ -60,8 +60,7 @@ function desativarNotaVelha(coluna){
     if(notasSelecionadas[coluna].casa != 6){
         notasSelecionadas[coluna].elemento.classList.toggle("hidden");
     }else{
-        notasSelecionadas[coluna].elemento.childNodes[0].classList.toggle("dis-none");
-        notasSelecionadas[coluna].elemento.childNodes[1].classList.toggle("dis-block");
+        notasSelecionadas[coluna].elemento.childNodes[1].classList.remove("dis-block");
     }
 }
 
@@ -83,8 +82,8 @@ function displayNotasSelecionadas(){
 
 function selecionaOpenNote(coluna,nota,elemento){
     if (elemento.childNodes[0].classList.contains("dis-none")){
-        elemento.childNodes[0].classList.toggle("dis-none")
-        elemento.childNodes[1].classList.toggle("dis-block")
+        elemento.childNodes[0].classList.remove("dis-none")
+        elemento.childNodes[1].classList.remove("dis-block")
         notasSelecionadas[coluna] = {};
         
     }else{
@@ -93,8 +92,9 @@ function selecionaOpenNote(coluna,nota,elemento){
             desativarNotaVelha(coluna);
         }
 
-        elemento.childNodes[0].classList.toggle("dis-none")
-        elemento.childNodes[1].classList.toggle("dis-block")
+        elemento.childNodes[0].classList.add("dis-none")
+        elemento.childNodes[1].classList.add("dis-block")
+        elemento.childNodes[1].classList.remove("dis-none")
         let obj = notasSelecionadas[coluna];
         obj["nota"] = nota;
         obj["casa"] = 6;
@@ -110,6 +110,8 @@ function selecionaNota(coluna,casa,elementoNovo){
 
         if(notasSelecionadas[coluna].nota != undefined){
             desativarNotaVelha(coluna);
+        }else{
+            document.querySelector(`.openNote-holder:nth-child(${coluna+1}) .openNote-span`).classList.add("dis-none")
         }
 
         let obj = notasSelecionadas[coluna];
@@ -121,6 +123,7 @@ function selecionaNota(coluna,casa,elementoNovo){
 
     }else{
         elementoNovo.classList.toggle("hidden");
+        document.querySelector(`.openNote-holder:nth-child(${coluna+1}) .openNote-span`).classList.remove("dis-none")
         notasSelecionadas[coluna] = {};
     }
 
@@ -144,6 +147,7 @@ function displayOpenNotes(){
         div.append(sp)
         div.classList.add("openNote-holder")
         spBola.classList.add("openNote-bola")
+        spBola.classList.add("dis-none");
         div.append(spBola)
         openNoteContainer.append(div);
 
