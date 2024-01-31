@@ -12,8 +12,8 @@ const acordeResultadoHTML = document.querySelector(".acordeResultado");
 const acordeBTN = document.querySelector(".acordeBTN");
 const infoBTN = document.querySelector(".btn-info")
 const acordesBTN = document.querySelector(".btn-acordes")
-let acordesHTML;
-
+const nomeInput = document.getElementsByName("nomeAcorde")[0]
+const btnInputNome = document.querySelector(".btn-inputNome")
 
 let arrayNotas = [[], [], [], [], [], []];
 let notasSelecionadas = [{}, {}, {}, {}, {}, {}];
@@ -242,10 +242,28 @@ function achaAcorde() {
     let txt;
     if (acordes.length != 0) {
         txt = "Acordes detectados: " + acordes.join(", ")
+        nomeInput.value = acordes[0]
+
+        let ul = document.createElement("ul")
+        ul.classList.add("listaNomeInput","dis-none")
+        let holder = document.querySelector(".inputNome-holder")
+        holder.append(ul)
+        acordes.forEach((el)=>{
+            let li = document.createElement("li")
+            li.append(el)
+            ul.append(li)
+
+            li.addEventListener("click",()=>{
+                nomeInput.value = li.textContent
+            })
+        })
+
     } else {
         txt = "Nenhum acorde foi detectado"
     }
     acordeResultadoHTML.replaceChildren(txt)
+
+
 }
 
 
@@ -285,7 +303,6 @@ rangeAumenta.addEventListener("click", (event) => {
 
 
 
-let arr ;
 
 infoBTN.addEventListener("click", ()=>{
   
@@ -301,4 +318,11 @@ acordesBTN.addEventListener("click", ()=>{
 
 
     c.replaceChildren(...arr)
+})
+
+
+btnInputNome.addEventListener("click", ()=>{
+    let li = document.querySelector(".listaNomeInput")
+    li.classList.toggle("dis-block")
+    li.classList.toggle("dis-none")
 })

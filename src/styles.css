@@ -238,3 +238,41 @@ body{
     cursor:pointer;
     text-align: center;
 }
+
+.labelNome{
+    display: block;
+    color: white;
+    font-size: 18x;
+}
+
+.inputNome-holder{
+    display: flex;
+    position: relative;
+}
+
+.inputNome-holder i {
+    line-height: unset;
+    vertical-align: unset;
+}
+
+.inputNome-holder input{
+    width: 150px;
+    font-size: 16px;
+}
+
+.listaNomeInput {
+    margin: unset;
+    padding: unset;
+    background-color: #fff;
+    width: 148px;
+    list-style: none;
+    position: absolute;
+    top: 28px;
+    left: 1px;
+
+}
+
+.listaNomeInput li {
+    cursor: pointer;
+    border-bottom: solid 2px black;
+}
