@@ -1,4 +1,4 @@
-import {testeRender} from './info.js'
+import { testeRender } from './info.js'
 
 const { Chord } = require("tonal");
 const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -244,19 +244,36 @@ function achaAcorde() {
         txt = "Acordes detectados: " + acordes.join(", ")
         nomeInput.value = acordes[0]
 
-        let ul = document.createElement("ul")
-        ul.classList.add("listaNomeInput","dis-none")
-        let holder = document.querySelector(".inputNome-holder")
-        holder.append(ul)
-        acordes.forEach((el)=>{
-            let li = document.createElement("li")
-            li.append(el)
-            ul.append(li)
+        if (document.querySelector(".listaNomeInput") === null) {
+            let ul = document.createElement("ul")
+            ul.classList.add("listaNomeInput", "dis-none")
+            let holder = document.querySelector(".inputNome-holder")
+            holder.append(ul)
+            acordes.forEach((el) => {
+                let li = document.createElement("li")
+                li.append(el)
+                ul.append(li)
 
-            li.addEventListener("click",()=>{
-                nomeInput.value = li.textContent
+                li.addEventListener("click", () => {
+                    nomeInput.value = li.textContent
+                })
+
+
             })
-        })
+        }else{
+            let ul = document.querySelector(".listaNomeInput");
+            ul.replaceChildren(...acordes.map((el)=>{
+                let li = document.createElement("li")
+                li.append(el)
+
+                li.addEventListener("click", () => {
+                    nomeInput.value = li.textContent
+                })
+
+                return li;
+            }))
+        }
+
 
     } else {
         txt = "Nenhum acorde foi detectado"
@@ -304,16 +321,16 @@ rangeAumenta.addEventListener("click", (event) => {
 
 
 
-infoBTN.addEventListener("click", ()=>{
-  
+infoBTN.addEventListener("click", () => {
+
     let c = document.querySelector(".builder-container").childNodes
     arr = Array.from(c);
 
     testeRender()
 
-}) 
+})
 
-acordesBTN.addEventListener("click", ()=>{
+acordesBTN.addEventListener("click", () => {
     let c = document.querySelector(".builder-container")
 
 
@@ -321,8 +338,10 @@ acordesBTN.addEventListener("click", ()=>{
 })
 
 
-btnInputNome.addEventListener("click", ()=>{
+btnInputNome.addEventListener("click", () => {
     let li = document.querySelector(".listaNomeInput")
-    li.classList.toggle("dis-block")
-    li.classList.toggle("dis-none")
+    if(document.querySelector(".listaNomeInput") != null){
+        li.classList.toggle("dis-block")
+        li.classList.toggle("dis-none")
+    }
 })
