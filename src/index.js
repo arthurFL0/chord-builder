@@ -1,4 +1,5 @@
 import { testeRender } from './info.js'
+import { displayAcordes } from './acordes.js'
 
 const { Chord } = require("tonal");
 const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -11,12 +12,15 @@ const rangeAumenta = document.querySelectorAll(".range-container > span")[2]
 const acordeResultadoHTML = document.querySelector(".acordeResultado");
 const acordeBTN = document.querySelector(".acordeBTN");
 const infoBTN = document.querySelector(".btn-info")
+const construtorBTN = document.querySelector(".btn-construtor")
 const acordesBTN = document.querySelector(".btn-acordes")
 const nomeInput = document.getElementsByName("nomeAcorde")[0]
 const btnInputNome = document.querySelector(".btn-inputNome")
+const btnSalva = document.querySelector(".btn-salvaAcorde")
 
 let arrayNotas = [[], [], [], [], [], []];
 let notasSelecionadas = [{}, {}, {}, {}, {}, {}];
+let cache;
 let range = 1;
 
 
@@ -173,6 +177,7 @@ function displayOpenNotes() {
 }
 
 
+
 function displayTrastes() {
     for (let i = 1; i < 6; i++) {
         let col = document.createElement("div")
@@ -244,9 +249,9 @@ function achaAcorde() {
         txt = "Acordes detectados: " + acordes.join(", ")
         nomeInput.value = acordes[0]
 
-        if (document.querySelector(".listaNomeInput") === null) {
+        if (document.querySelector(".listaInput") === null) {
             let ul = document.createElement("ul")
-            ul.classList.add("listaNomeInput", "dis-none")
+            ul.classList.add("listaInput", "dis-none")
             let holder = document.querySelector(".inputNome-holder")
             holder.append(ul)
             acordes.forEach((el) => {
@@ -261,7 +266,7 @@ function achaAcorde() {
 
             })
         }else{
-            let ul = document.querySelector(".listaNomeInput");
+            let ul = document.querySelector(".listaInput");
             ul.replaceChildren(...acordes.map((el)=>{
                 let li = document.createElement("li")
                 li.append(el)
@@ -280,8 +285,52 @@ function achaAcorde() {
     }
     acordeResultadoHTML.replaceChildren(txt)
 
+    console.log(notasSelecionadas)
+
 
 }
+
+function salvaAcorde(){
+
+    let novoAcorde = {};
+    novoAcorde["nome"] = nomeInput.value;
+    novoAcorde["notas"] = notasSelecionadas;
+    novoAcorde["range"] = range;
+
+    let p = document.querySelector(".textoSave")
+
+    if(!localStorage.getItem("acordes")){
+        localStorage.setItem("acordes",JSON.stringify([novoAcorde]))
+        p.replaceChildren("O acorde foi salvo!")
+    }else{
+        let arr = JSON.parse(localStorage.getItem("acordes"));
+        if(!achaDupli(novoAcorde.nome)){
+            arr.push(novoAcorde);
+            localStorage.setItem("acordes",JSON.stringify(arr));
+            p.replaceChildren("O acorde foi salvo!")
+        }else{
+            p.replaceChildren("Já foi salvo um acorde com o mesmo nome.")
+        
+        }
+    }
+
+}
+
+
+function achaDupli(nome){
+    let arrayAcordes = JSON.parse(localStorage.getItem("acordes"));
+    for(let i = 0; i < arrayAcordes.length; i++){
+        if(arrayAcordes[i].nome === nome)
+            return true
+    }
+    return false
+}
+
+function salvaCache(){
+    let c = document.querySelector(".builder-container").childNodes
+    cache = Array.from(c);
+}
+
 
 
 
@@ -290,6 +339,7 @@ window.onload = () => {
     displayOpenNotes();
     displayNotasSelecionadas();
     rangeHTML.append(range)
+
 }
 
 
@@ -322,26 +372,29 @@ rangeAumenta.addEventListener("click", (event) => {
 
 
 infoBTN.addEventListener("click", () => {
-
-    let c = document.querySelector(".builder-container").childNodes
-    arr = Array.from(c);
-
-    testeRender()
-
+    salvaCache();
+    testeRender();
 })
 
-acordesBTN.addEventListener("click", () => {
+construtorBTN.addEventListener("click", () => {
     let c = document.querySelector(".builder-container")
+    c.replaceChildren(...cache)
+})
 
-
-    c.replaceChildren(...arr)
+acordesBTN.addEventListener("click",()=>{
+    salvaCache();
+    displayAcordes();
 })
 
 
 btnInputNome.addEventListener("click", () => {
-    let li = document.querySelector(".listaNomeInput")
-    if(document.querySelector(".listaNomeInput") != null){
+    let li = document.querySelector(".listaInput")
+    if(document.querySelector(".listaInput") != null){
         li.classList.toggle("dis-block")
         li.classList.toggle("dis-none")
     }
 })
+
+btnSalva.addEventListener("click",()=>{
+    salvaAcorde();
+});

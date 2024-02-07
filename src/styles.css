@@ -152,7 +152,7 @@ body{
     width: 15px;
     height: 15px;
     top: 5px;
-    left: 51px;
+    left: 46px;
     cursor:pointer;
 
 }
@@ -260,7 +260,7 @@ body{
     font-size: 16px;
 }
 
-.listaNomeInput {
+.listaInput {
     margin: unset;
     padding: unset;
     background-color: #fff;
@@ -272,7 +272,38 @@ body{
 
 }
 
-.listaNomeInput li {
+.listaInput li {
     cursor: pointer;
     border-bottom: solid 2px black;
+}
+
+.saveContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-salvaAcorde{
+    padding: 10px;
+    width: 100%;
+}
+
+.textoSave{
+    color: white;
+    width: 150px;
+}
+
+.container-acordes{
+    display: flex;
+    flex-wrap: wrap;
+    width: 1000px;
+}
+
+.div-acorde{
+    width: 25%;
+}
+
+.btn-acorde{
+    width: 100%;
+    padding: 20px;
 }
