@@ -307,3 +307,24 @@ body{
     width: 100%;
     padding: 20px;
 }
+
+.acorde-container > div{
+    width: 50%;
+}
+
+.acorde-container{
+    display: flex;
+    width: 1000px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.div-info h2{
+    font-size: 35px;
+}
+
+.white{
+    color: white;
+}
