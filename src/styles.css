@@ -122,7 +122,7 @@ body{
 }
 
 
-.nota-container{
+.nota-container,.nota-container-B{
     position: relative;
     display: block;
     right: 0px;
@@ -146,7 +146,7 @@ body{
     
 }
 
-.nota-container-direita{
+.nota-container-direita,.nota-container-direita-B{
     position: relative;
     display: block;
     width: 15px;
@@ -310,11 +310,13 @@ body{
 
 .acorde-container > div{
     width: 50%;
+
 }
 
 .acorde-container{
     display: flex;
     width: 1000px;
+    align-items: center;
 }
 
 .pointer{
@@ -323,8 +325,17 @@ body{
 
 .div-info h2{
     font-size: 35px;
+    margin-top: 0px;
+}
+
+.padding-t{
+    padding-top: 13px;
 }
 
 .white{
     color: white;
+}
+
+.div-display{
+    display: flex;
 }

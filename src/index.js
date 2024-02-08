@@ -1,5 +1,6 @@
 import { testeRender } from './info.js'
 import { displayAcordes } from './acordes.js'
+export {displayTrastes};
 
 const { Chord } = require("tonal");
 const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -178,7 +179,7 @@ function displayOpenNotes() {
 
 
 
-function displayTrastes() {
+function displayTrastes(pai,ehVisualizador,notas) {
     for (let i = 1; i < 6; i++) {
         let col = document.createElement("div")
         col.classList.add("coluna");
@@ -189,10 +190,8 @@ function displayTrastes() {
             casa.classList.add("casa");
 
             let notaContainer = document.createElement("span");
-            notaContainer.classList.add("nota-container")
 
             let nota = document.createElement("span");
-            nota.classList.add("nota", "hidden");
 
             let notaTxt = defineNota(i, j);
             nota.append(notaTxt)
@@ -202,28 +201,51 @@ function displayTrastes() {
             notaContainer.appendChild(nota);
             casa.appendChild(notaContainer);
 
-            notaContainer.addEventListener("click", () => {
-                selecionaNota(i - 1, j, nota)
-            })
+            if(!ehVisualizador){
+                notaContainer.classList.add("nota-container")
+                notaContainer.addEventListener("click", () => {
+                    selecionaNota(i - 1, j, nota)
+                })
+                nota.classList.add("nota", "hidden");
+            }else{
+                notaContainer.classList.add("nota-container-B")
+
+                if(notas[i-1].casa != undefined && j === notas[i-1].casa){
+                    nota.classList.add("nota");
+                }else{
+                    nota.classList.add("nota", "hidden");
+                }
+            }
+
 
             if (i === 5) {
                 let notaContainerD = document.createElement("span");
-                notaContainerD.classList.add("nota-container-direita");
-
+                
                 let notaD = document.createElement("span");
-                notaD.classList.add("nota", "hidden");
                 let notaDTxt = defineNota(6, j);
                 notaD.append(notaDTxt)
-
+                
                 arrayNotas[5].push(notaD);
-
-
+                
+                
                 notaContainerD.appendChild(notaD);
                 casa.appendChild(notaContainerD);
-
-                notaContainerD.addEventListener("click", () => {
-                    selecionaNota(i, j, notaD)
-                })
+                
+                if(!ehVisualizador){
+                    notaContainerD.classList.add("nota-container-direita");
+                    notaD.classList.add("nota", "hidden");
+                    notaContainerD.addEventListener("click", () => {
+                        selecionaNota(i, j, notaD)
+                    })
+                }else{
+                    notaContainerD.classList.add("nota-container-direita-B")
+    
+                    if(notas[5].casa != undefined && j === notas[5].casa){
+                        notaD.classList.add("nota");
+                    }else{
+                        notaD.classList.add("nota", "hidden");
+                    }
+                }
 
             }
 
@@ -231,7 +253,7 @@ function displayTrastes() {
         }
 
 
-        braco.appendChild(col);
+        pai.appendChild(col);
     }
 }
 
@@ -335,7 +357,7 @@ function salvaCache(){
 
 
 window.onload = () => {
-    displayTrastes();
+    displayTrastes(braco);
     displayOpenNotes();
     displayNotasSelecionadas();
     rangeHTML.append(range)

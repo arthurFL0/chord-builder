@@ -1,5 +1,6 @@
 
 export{displayAcordes};
+import {displayTrastes} from './index.js';
 
 
 
@@ -50,7 +51,28 @@ function renderAcorde(acorde){
         divInformation.append(p)
     })
 
+    construirAcorde(divDisplay,acorde)
+
 
     document.querySelector(".builder-container").replaceChildren(divAcorde)
+
+}
+
+
+function construirAcorde(pai,acorde){
+    let divCasas = document.createElement("div")
+    divCasas.classList.add("numeroCasas-container","c-default","padding-t")
+
+    let i = 0;
+    while(i < 5){
+        let span = document.createElement("span")
+        span.append(acorde.range+i)
+        divCasas.append(span)
+        i = i + 1;
+    }
+
+    pai.append(divCasas);
+    displayTrastes(pai,true,acorde.notas)
+    
 
 }
