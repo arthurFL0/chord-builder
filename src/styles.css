@@ -309,7 +309,7 @@ body{
 }
 
 .acorde-container > div{
-    width: 50%;
+    width: 38%;
 
 }
 
@@ -317,6 +317,7 @@ body{
     display: flex;
     width: 1000px;
     align-items: center;
+    justify-content: center;
 }
 
 .pointer{

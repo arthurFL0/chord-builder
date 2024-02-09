@@ -71,8 +71,33 @@ function construirAcorde(pai,acorde){
         i = i + 1;
     }
 
-    pai.append(divCasas);
-    displayTrastes(pai,true,acorde.notas)
+    let div = document.createElement("div")
+    let openNoteContainer = document.createElement("div")
+    openNoteContainer.classList.add("openNote-container")
+
+    let braco = document.createElement("div")
+    braco.classList.add("braco")
+
+    acorde.notas.forEach((nota,i)=>{
+        let divOpen = document.createElement("div")
+        divOpen.classList.add("openNote-holder")
+        let span = document.createElement("span")
+
+        if(nota.casa === 6){
+            span.classList.add("openNote-bola","dis-block")
+        }else if (nota.casa === undefined){
+            span.classList.add("openNote-span")
+            span.append("X")
+        }
+
+        divOpen.append(span)
+        openNoteContainer.append(divOpen)
+    })
+
+    displayTrastes(braco,true,acorde.notas)
+    div.append(braco)
+    div.append(openNoteContainer)
+    pai.append(divCasas,div);
     
 
 }
