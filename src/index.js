@@ -349,8 +349,13 @@ function achaDupli(nome){
 }
 
 function salvaCache(){
-    let c = document.querySelector(".builder-container").childNodes
-    cache = Array.from(c);
+    const ehPaginaConstrutor = document.querySelector((".builder-container")).children[0].classList.contains("range-container");
+
+    if(ehPaginaConstrutor){
+        const c = document.querySelector(".builder-container").childNodes
+        cache = Array.from(c);
+    }
+
 }
 
 
@@ -407,6 +412,7 @@ acordesBTN.addEventListener("click",()=>{
     salvaCache();
     displayAcordes();
 })
+
 
 
 btnInputNome.addEventListener("click", () => {
