@@ -340,3 +340,9 @@ body{
 .div-display{
     display: flex;
 }
+
+.atual{
+    border: 2px solid white;
+    color: white;
+    background: #313131;
+}

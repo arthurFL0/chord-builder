@@ -1,28 +1,30 @@
-import { testeRender } from './info.js'
-import { displayAcordes } from './acordes.js'
-export {displayTrastes};
+    import { testeRender } from './info.js'
+    import { displayAcordes } from './acordes.js'
+    export {displayTrastes};
 
-const { Chord } = require("tonal");
-const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-const afinacao = ["E", "A", "D", "G", "B", "E"];
-const braco = document.querySelector(".braco");
-const openNoteContainer = document.querySelector(".openNote-container")
-const rangeHTML = document.querySelectorAll(".range-container > span")[1]
-const rangeDiminui = document.querySelectorAll(".range-container > span")[0]
-const rangeAumenta = document.querySelectorAll(".range-container > span")[2]
-const acordeResultadoHTML = document.querySelector(".acordeResultado");
-const acordeBTN = document.querySelector(".acordeBTN");
-const infoBTN = document.querySelector(".btn-info")
-const construtorBTN = document.querySelector(".btn-construtor")
-const acordesBTN = document.querySelector(".btn-acordes")
-const nomeInput = document.getElementsByName("nomeAcorde")[0]
-const btnInputNome = document.querySelector(".btn-inputNome")
-const btnSalva = document.querySelector(".btn-salvaAcorde")
+    const { Chord } = require("tonal");
+    const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    const afinacao = ["E", "A", "D", "G", "B", "E"];
+    const braco = document.querySelector(".braco");
+    const openNoteContainer = document.querySelector(".openNote-container")
+    const rangeHTML = document.querySelectorAll(".range-container > span")[1]
+    const rangeDiminui = document.querySelectorAll(".range-container > span")[0]
+    const rangeAumenta = document.querySelectorAll(".range-container > span")[2]
+    const acordeResultadoHTML = document.querySelector(".acordeResultado");
+    const acordeBTN = document.querySelector(".acordeBTN");
+    const infoBTN = document.querySelector(".btn-info")
+    const construtorBTN = document.querySelector(".btn-construtor")
+    const acordesBTN = document.querySelector(".btn-acordes")
+    const nomeInput = document.getElementsByName("nomeAcorde")[0]
+    const btnInputNome = document.querySelector(".btn-inputNome")
+    const btnSalva = document.querySelector(".btn-salvaAcorde")
 
-let arrayNotas = [[], [], [], [], [], []];
-let notasSelecionadas = [{}, {}, {}, {}, {}, {}];
-let cache;
-let range = 1;
+    let arrayNotas = [[], [], [], [], [], []];
+    let notasSelecionadas = [{}, {}, {}, {}, {}, {}];
+    let cache;
+    let btnAtual = construtorBTN;
+    let range = 1;
+
 
 
 function defineNota(cordaAtual, casaAtual) {
@@ -358,6 +360,14 @@ function salvaCache(){
 
 }
 
+function alteraAtual(targetBTN){
+    if(targetBTN !== btnAtual){
+        btnAtual.classList.toggle("atual");
+        targetBTN.classList.toggle("atual");
+        btnAtual = targetBTN;
+    }
+}
+
 
 
 
@@ -398,19 +408,24 @@ rangeAumenta.addEventListener("click", (event) => {
 
 
 
-infoBTN.addEventListener("click", () => {
+infoBTN.addEventListener("click", (event) => {
     salvaCache();
     testeRender();
+    alteraAtual(event.target)
 })
 
-construtorBTN.addEventListener("click", () => {
-    let c = document.querySelector(".builder-container")
-    c.replaceChildren(...cache)
+construtorBTN.addEventListener("click", (event) => {
+    if(cache){
+        let c = document.querySelector(".builder-container")
+        c.replaceChildren(...cache)
+    }
+    alteraAtual(event.target)
 })
 
-acordesBTN.addEventListener("click",()=>{
+acordesBTN.addEventListener("click",(event)=>{
     salvaCache();
     displayAcordes();
+    alteraAtual(event.target)
 })
 
 
