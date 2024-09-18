@@ -39,9 +39,7 @@ function renderAcorde(acorde,index){
     divSuperior.classList.add("btnAcorde-container")
     let btnVoltar = document.createElement("button")
     btnVoltar.append("Voltar")
-    btnVoltar.addEventListener('click',()=>{
-        displayAcordes();
-    })
+    
     let btnRemover = document.createElement("button")
     btnRemover.append("Remover Acorde")
     btnRemover.addEventListener('click',()=>{
@@ -51,9 +49,12 @@ function renderAcorde(acorde,index){
 
     let divVoltar = document.createElement("div")
     let tagI = document.createElement("i")
-    divVoltar.classList.add("voltar-container")
+    divVoltar.classList.add("voltar-container","pointer")
     tagI.classList.add("fa-solid","fa-right-long","fa-rotate-180")
     divVoltar.append(tagI,btnVoltar)
+    divVoltar.addEventListener('click',()=>{
+        displayAcordes();
+    })
 
 
     divSuperior.append(divVoltar,btnRemover)
