@@ -32,7 +32,7 @@ h1 {
 }
 
 body{
-    background-color: rgb(83, 83, 211);
+    background-color: #3b8eba;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,7 +69,6 @@ body{
 .builder-container{
     display: flex;
     margin-top: 55px;
-    width: 1000px;
 }
 
 .afinacao{
@@ -275,6 +274,7 @@ body{
 .listaInput li {
     cursor: pointer;
     border-bottom: solid 2px black;
+    padding: 2px 3px;
 }
 
 .saveContainer{
@@ -290,7 +290,7 @@ body{
 
 .textoSave{
     color: white;
-    width: 150px;
+    width: 170px;
 }
 
 .container-acordes{
@@ -308,17 +308,43 @@ body{
     padding: 20px;
 }
 
-.acorde-container > div{
-    width: 38%;
-
-}
 
 .acorde-container{
     display: flex;
-    width: 1000px;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
+
+.infoAcorde-container {
+    display: flex;
+    gap: 10rem;
+}
+
+.btnAcorde-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: white;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.btnAcorde-container  button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.voltar-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 
 .pointer{
     cursor: pointer;
@@ -339,6 +365,7 @@ body{
 
 .div-display{
     display: flex;
+    padding-top: 40px;
 }
 
 .atual{

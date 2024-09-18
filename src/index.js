@@ -325,15 +325,15 @@ function salvaAcorde(){
 
     if(!localStorage.getItem("acordes")){
         localStorage.setItem("acordes",JSON.stringify([novoAcorde]))
-        p.replaceChildren("O acorde foi salvo!")
+        p.replaceChildren("O acorde "+nomeInput.value+" foi salvo!")
     }else{
         let arr = JSON.parse(localStorage.getItem("acordes"));
         if(!achaDupli(novoAcorde.nome)){
             arr.push(novoAcorde);
             localStorage.setItem("acordes",JSON.stringify(arr));
-            p.replaceChildren("O acorde foi salvo!")
+            p.replaceChildren("O acorde "+nomeInput.value+" foi salvo!")
         }else{
-            p.replaceChildren("Já foi salvo um acorde com o mesmo nome.")
+            p.replaceChildren("Já existe um acorde com o mesmo nome.")
         
         }
     }

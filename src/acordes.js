@@ -9,7 +9,7 @@ function displayAcordes(){
     divContainer.classList.add("container-acordes");
     document.querySelector(".builder-container").replaceChildren(divContainer)
 
-    JSON.parse(localStorage.getItem("acordes")).forEach((acorde)=>{
+    JSON.parse(localStorage.getItem("acordes")).forEach((acorde,index)=>{
         let div = document.createElement("div");
         let btn = document.createElement("button");
         btn.append(acorde.nome);
@@ -18,23 +18,51 @@ function displayAcordes(){
         div.append(btn)
         divContainer.append(div)
         btn.addEventListener('click',()=>{
-            renderAcorde(acorde)
+            renderAcorde(acorde,index)
         })
     })
 }
 
 
-function renderAcorde(acorde){
-    let divAcorde = document.createElement("div");
+function renderAcorde(acorde,index){
+    let divAcorde = document.createElement("div")
     divAcorde.classList.add("acorde-container");
     let divInformation = document.createElement("div")
     divInformation.classList.add("div-info")
     let divDisplay = document.createElement("div")
     divDisplay.classList.add("div-display")
-    divAcorde.append(divInformation,divDisplay)
+    let divInferior = document.createElement("div")
+    divInferior.classList.add("infoAcorde-container","c-default")
+    divInferior.append(divInformation,divDisplay)
+
+    let divSuperior = document.createElement("div");
+    divSuperior.classList.add("btnAcorde-container")
+    let btnVoltar = document.createElement("button")
+    btnVoltar.append("Voltar")
+    btnVoltar.addEventListener('click',()=>{
+        displayAcordes();
+    })
+    let btnRemover = document.createElement("button")
+    btnRemover.append("Remover Acorde")
+    btnRemover.addEventListener('click',()=>{
+        removerAcorde(index);
+        displayAcordes();
+    })
+
+    let divVoltar = document.createElement("div")
+    let tagI = document.createElement("i")
+    divVoltar.classList.add("voltar-container")
+    tagI.classList.add("fa-solid","fa-right-long","fa-rotate-180")
+    divVoltar.append(tagI,btnVoltar)
+
+
+    divSuperior.append(divVoltar,btnRemover)
+
+    divAcorde.append(divSuperior)
+    divAcorde.append(divInferior)
 
     let nomeAcorde = document.createElement("h2")
-    nomeAcorde.append(acorde.nome);
+    nomeAcorde.append(acorde.nome)
     nomeAcorde.classList.add("white")
     divInformation.append(nomeAcorde)
 
@@ -56,8 +84,8 @@ function renderAcorde(acorde){
 
     document.querySelector(".builder-container").replaceChildren(divAcorde)
 
-}
 
+}
 
 function construirAcorde(pai,acorde){
     let divCasas = document.createElement("div")
@@ -100,4 +128,11 @@ function construirAcorde(pai,acorde){
     pai.append(divCasas,div);
     
 
+}
+
+function removerAcorde(index){
+    let arrNovo = JSON.parse(localStorage.getItem("acordes"))
+    arrNovo.splice(index,1)
+    console.log(arrNovo," ",index)
+    localStorage.setItem("acordes",JSON.stringify(arrNovo))
 }
