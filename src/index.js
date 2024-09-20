@@ -1,4 +1,4 @@
-    import { testeRender } from './info.js'
+    import { displayInfo } from './info.js'
     import { displayAcordes } from './acordes.js'
     export {displayTrastes};
 
@@ -309,19 +309,31 @@ function achaAcorde() {
     }
     acordeResultadoHTML.replaceChildren(txt)
 
-    console.log(notasSelecionadas)
-
 
 }
 
 function salvaAcorde(){
 
     let novoAcorde = {};
+    let p = document.querySelector(".textoSave")
+    
+    if(nomeInput.value.length <= 0){
+        p.replaceChildren("O acorde precisa ter um nome de no mínimo um caractere")
+        return 0;
+    }
+
+    console.log(notasSelecionadas)
+
+    if(notasSelecionadas.length < 2){
+        p.replaceChildren('Forme um acorde com pelo menos duas notas')
+        return 0;
+    }
+
+
     novoAcorde["nome"] = nomeInput.value;
     novoAcorde["notas"] = notasSelecionadas;
     novoAcorde["range"] = range;
 
-    let p = document.querySelector(".textoSave")
 
     if(!localStorage.getItem("acordes")){
         localStorage.setItem("acordes",JSON.stringify([novoAcorde]))
@@ -410,7 +422,7 @@ rangeAumenta.addEventListener("click", (event) => {
 
 infoBTN.addEventListener("click", (event) => {
     salvaCache();
-    testeRender();
+    displayInfo();
     alteraAtual(event.target)
 })
 

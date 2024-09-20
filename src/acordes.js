@@ -7,9 +7,13 @@ import {displayTrastes} from './index.js';
 function displayAcordes(){
     let divContainer = document.createElement("div");
     divContainer.classList.add("container-acordes");
-    document.querySelector(".builder-container").replaceChildren(divContainer)
+    document.querySelector(".builder-container").replaceChildren(divContainer);
 
-    JSON.parse(localStorage.getItem("acordes")).forEach((acorde,index)=>{
+    let arrAcordes = JSON.parse(localStorage.getItem("acordes"));
+
+
+    if(arrAcordes.length > 0){
+        arrAcordes.forEach((acorde,index)=>{
         let div = document.createElement("div");
         let btn = document.createElement("button");
         btn.append(acorde.nome);
@@ -21,6 +25,15 @@ function displayAcordes(){
             renderAcorde(acorde,index)
         })
     })
+
+    }else{
+        let div = document.createElement("div");
+        div.classList.add('acordes-placeholder','c-default')
+        let span  = document.createElement("span");
+        span.append('Crie acordes na tela do construtor e eles aparecerão aqui!');
+        div.append(span)
+        divContainer.append(div)
+    }
 }
 
 
@@ -42,6 +55,7 @@ function renderAcorde(acorde,index){
     
     let btnRemover = document.createElement("button")
     btnRemover.append("Remover Acorde")
+    btnRemover.classList.add('btnRemover')
     btnRemover.addEventListener('click',()=>{
         removerAcorde(index);
         displayAcordes();
