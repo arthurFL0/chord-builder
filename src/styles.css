@@ -428,3 +428,7 @@ body{
     justify-content: space-around;
     font-size: 18px;
 }
+
+.link-holder a {
+    color: white;
+}
