@@ -2,15 +2,20 @@
   "name": "chordbuilder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html"
+    "start": "parcel src/index.html",
+    "build:parcel": "parcel build src/index.html --public-url /chord-builder",
+    "build": "npm run clean:windows && npm run build:parcel",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "clean:windows": "rd /s/q dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "parcel": "^2.10.3"
   },
   "dependencies": {

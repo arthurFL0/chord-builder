@@ -16,7 +16,7 @@ function displayInfo(){
     sec.classList.add('sec-info')
     h2_contato.append('Informações de contato');
     h2.append('Sobre o site')
-    p.append("Nesse projeto pessoal de minha autoria, você pode escolher as posições das notas no braço do violão em formato de cifra e então achar o nome do acorde digitado.")
+    p.append("Nesse projeto pessoal de minha autoria você pode escolher as posições das notas no braço do violão, em formato de cifra, e então achar o nome do acorde digitado.")
     p2.append("Foi utilizado o empacotador web Parcel junto com Javascript, CSS, HTML e a biblioteca javascript de teoria musical 'tonal'.")
     linkedin.append("Linkedin")
     git.append("Github")

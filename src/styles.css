@@ -237,6 +237,11 @@ body{
 
 .acordeBTN{
     cursor: pointer;
+    font-size: 15px;
+    padding: 8px;
+    width: 150px;
+    margin-top: 30px;
+
 }
 
 .seta{
@@ -292,6 +297,7 @@ body{
 .btn-salvaAcorde{
     padding: 10px;
     width: 100%;
+    font-size: 15px;
 }
 
 .textoSave{
