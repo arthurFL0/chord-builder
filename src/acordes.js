@@ -9,10 +9,10 @@ function displayAcordes(){
     divContainer.classList.add("container-acordes");
     document.querySelector(".builder-container").replaceChildren(divContainer);
 
-    let arrAcordes = JSON.parse(localStorage.getItem("acordes"));
+    let arrAcordes = localStorage.getItem("acordes") ? JSON.parse(localStorage.getItem("acordes")) : [] ;
 
 
-    if(arrAcordes.length > 0){
+    if(arrAcordes.length > 0 ){
         arrAcordes.forEach((acorde,index)=>{
         let div = document.createElement("div");
         let btn = document.createElement("button");

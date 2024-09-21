@@ -1,8 +1,8 @@
     import { displayInfo } from './info.js'
     import { displayAcordes } from './acordes.js'
+    import { detect } from "@tonaljs/chord";
     export {displayTrastes};
 
-    const { Chord } = require("tonal");
     const notas = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     const afinacao = ["E", "A", "D", "G", "B", "E"];
     const braco = document.querySelector(".braco");
@@ -267,7 +267,7 @@ function achaAcorde() {
         }
     });
 
-    let acordes = Chord.detect(notas)
+    let acordes = detect(notas)
     let txt;
     if (acordes.length != 0) {
         txt = "Acordes detectados: " + acordes.join(", ")

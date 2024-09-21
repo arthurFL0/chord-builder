@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html",
+    "start": "npm run clean:windows && parcel src/index.html",
     "build:parcel": "parcel build src/index.html --public-url /chord-builder",
     "build": "npm run clean:windows && npm run build:parcel",
     "predeploy": "npm run build",
